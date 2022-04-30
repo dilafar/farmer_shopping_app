@@ -3,22 +3,51 @@ import { Form ,FormGroup , Label ,Input,Card} from 'reactstrap'
 import Navbar from '../components/Navbar'
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
+import {signup , signin} from '../actions/auth';
+import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom"
 
 const Login = () => {
   const [isSignup , setIsSignup] = useState(false);
-  const [firstname , setfirstname] = useState('');
-  const [lastname , setlastname] = useState('');
+  const [firstName , setfirstname] = useState('');
+  const [lastName , setlastname] = useState('');
   const [email , setemail] = useState('');
   const [password , setpassword] = useState('');
   const [confirmpassword , setconfirmpassword] = useState('');
   const [address , setaddress] = useState('');
-  const [phone , setphone] = useState(0);
+  const [Phone , setphone] = useState(0);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const switchMode = () => {
    
     setIsSignup((prevIsSignup) => !prevIsSignup);
    
   };
+
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+    if(isSignup){
+              dispatch(signup({firstName , lastName , email , Phone ,address ,password , confirmpassword},navigate));
+    }else{
+              dispatch(signin({email , password} , navigate));
+    }
+    console.log({email , password});
+
+    clear();
+  
+};
+
+  const clear = ()=>{
+    setfirstname('');
+    setlastname('');
+    setemail('');
+    setpassword('');
+    setconfirmpassword('');
+    setaddress('');
+    setphone(0);
+
+  }
   return (
     <div>
       <div  className="shadow p-3 mb-5 bg-white rounded" >
@@ -26,7 +55,7 @@ const Login = () => {
         </div>
         <Card style={{ margin: "100px 500px 40px 500px"}}>
           
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <div style={{ marginLeft: "300px" , marginTop: "50px" , marginBottom: "100px"}}>
           <h2 style={{ margin: "30px 0px 30px 300px" , }}>{isSignup ? "Register" : "Login"}</h2>
           {isSignup && (
@@ -42,7 +71,7 @@ const Login = () => {
       name="firstname"
       placeholder="with a placeholder"
       type="text"
-      value={firstname}  onChange={(e)=> setfirstname(e.target.value)}
+      value={firstName}  onChange={(e)=> setfirstname(e.target.value)}
       style={{width: "330px"}}
     />
   </FormGroup>
@@ -55,7 +84,7 @@ const Login = () => {
       name="lastname"
       placeholder="with a placeholder"
       type="text"
-      value={lastname}  onChange={(e)=> setlastname(e.target.value)}
+      value={lastName}  onChange={(e)=> setlastname(e.target.value)}
       style={{width: "330px" , marginLeft: "40px"}}
     />
   </FormGroup>
@@ -87,7 +116,7 @@ const Login = () => {
       name="phone"
       placeholder="with a placeholder"
       type="Number"
-      value={phone}  onChange={(e)=> setphone(e.target.value)}
+      value={Phone}  onChange={(e)=> setphone(e.target.value)}
       style={{width :  "700px"}}
     />
   </FormGroup>

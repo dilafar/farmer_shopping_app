@@ -1,10 +1,9 @@
 import { Badge, Button } from "@material-ui/core";
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
-import React from "react";
+import React ,{useState , useEffect} from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
-import {Link} from 'react-router-dom';
-
+import {Link , useLocation} from 'react-router-dom';
 
 const Container = styled.div`
   height: 80px;
@@ -71,6 +70,23 @@ const MenuItem = styled.div`
 `;
 
 const Navbar = () => {
+  const location = useLocation();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+  const [state , setstate] = useState('');
+
+  useEffect(() => {
+    const token = user?.result;
+
+    if (token) {
+      console.log(token.isFarmer);
+      if(token.isFarmer === "approved"){
+        setstate(token.isFarmer);
+      }
+      
+    }
+
+    setUser(JSON.parse(localStorage.getItem('profile')));
+  }, [location]);
   return (
     <div >
     <Container >
@@ -87,6 +103,11 @@ const Navbar = () => {
         </Center>
         <Right>
         <MenuItem><Button  component={Link} to="/" variant="contained"> Home</Button></MenuItem>
+        {state && (
+          <>
+        <MenuItem><Button  component={Link} to="/seller"  variant="contained"> Go to Seller</Button></MenuItem>
+        </>
+        )}
         <MenuItem><Button  component={Link} to="/product"  variant="contained"> View Products</Button></MenuItem>
           <MenuItem><Button component={Link} to="/auth"variant="contained"> SIGN IN </Button></MenuItem>
           

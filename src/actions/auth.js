@@ -1,4 +1,4 @@
-import {AUTH} from '../constants/actionTypes';
+import {AUTH} from '../constans/actionTypes';
 import * as api from '../api/index';
 
 
@@ -6,9 +6,7 @@ export const signin = (formdata , navigate) => async(dispatch) =>{
 
     try{
         const {data} = await api.signIn(formdata);
-
-       
-            console.log(data);
+            console.log(data.result);
             dispatch({type: AUTH, data});
             navigate("/");
         
@@ -22,8 +20,9 @@ export const signup = (formdata , navigate) => async(dispatch) =>{
 
     try{
         const {data} = await api.signUp(formdata);
-        console.log(data);
+        console.log(data.result);
         dispatch({type: AUTH, data});
+        alert("successs......");
         navigate("/");
         
     }catch(error){
