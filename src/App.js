@@ -7,6 +7,7 @@ import {getProducts} from './actions/product'
 import Listitems2 from './pages/Bayer/listtems2';
 import Login from './pages/Login';
 import ProductDetails from './pages/Bayer/ProductDetails';
+import Admin from './pages/Admin/admin';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route exact path="/seller/*" element={<Seller/>}/>
         <Route exact path="/product" element={< Listitems2/>} />
         <Route exact path="/product/:id" element={< ProductDetails/>} />
+        <Route exact path="/admin/*" element={<Admin/>}/>
        
       </Routes>
       </BrowserRouter>
