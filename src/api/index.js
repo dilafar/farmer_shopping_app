@@ -5,6 +5,9 @@ const url = 'http://localhost:5000';
 
 export const signIn = (formdata) => axios.post(`${url}/user/signin`,  formdata);
 export const signUp = (formdata) => axios.post(`${url}/user/signup`,  formdata);
+export const fetchUser = () => axios.get(`${url}/user`);
+export const updateUser = (id , formdata) => axios.put(`${url}/user/${id}`,formdata);
+export const deleteUser = (id) => axios.delete(`${url}/user/${id}`);
 
 export const addProduct = (formdata) => axios.post(`${url}/product/add`,  formdata);
 export const fetchProduct = (page) => axios.get(`${url}/product?page=${page}`);

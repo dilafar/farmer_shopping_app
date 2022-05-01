@@ -72,15 +72,18 @@ const MenuItem = styled.div`
 const Navbar = () => {
   const location = useLocation();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-  const [state , setstate] = useState('');
+  const [state , setstate] = useState(false);
+  const [adminNav , setadminNav] = useState(false);
 
   useEffect(() => {
     const token = user?.result;
 
     if (token) {
       console.log(token.isFarmer);
-      if(token.isFarmer === "approved"){
-        setstate(token.isFarmer);
+      if(token.isFarmer === "Approved"){
+          setstate(true);
+      }else if(token.firstName){
+           setadminNav(true);
       }
       
     }
@@ -106,6 +109,11 @@ const Navbar = () => {
         {state && (
           <>
         <MenuItem><Button  component={Link} to="/seller"  variant="contained"> Go to Seller</Button></MenuItem>
+        </>
+        )}
+         {adminNav && (
+          <>
+        <MenuItem><Button  component={Link} to="/admin"  variant="contained"> Go to Admin</Button></MenuItem>
         </>
         )}
         <MenuItem><Button  component={Link} to="/product"  variant="contained"> View Products</Button></MenuItem>
