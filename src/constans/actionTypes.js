@@ -11,3 +11,6 @@ export const LOGOUT = 'LOGOUT';
 export const FETCH_ALL_USER = 'FETCH_ALL_USER';
 export const UPDATE_USER = 'UPDATE_USER';
 export const DELETE_USER = 'DELETE_USER';
+export const CART_ADD_ITEM = "CART_ADD_ITEM ";
+export const CART_REMOVE_ITEM = "CART_REMOVE_ITEM";
+export const CART_CLEAR_ITEMS = "CART_CLEAR_ITEMS";

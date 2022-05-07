@@ -3,7 +3,7 @@ import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import React ,{useState , useEffect} from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
-import {Link , useLocation} from 'react-router-dom';
+import {Link , useLocation , useNavigate} from 'react-router-dom';
 
 const Container = styled.div`
   height: 80px;
@@ -69,11 +69,20 @@ const MenuItem = styled.div`
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 
-const Navbar = () => {
+const Navbar = ({length}) => {
   const location = useLocation();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   const [state , setstate] = useState(false);
   const [adminNav , setadminNav] = useState(false);
+  const navigate = useNavigate();
+ 
+ 
+const open =()=>{
+  
+    navigate(`/cart`);
+
+}
+  
 
   useEffect(() => {
     const token = user?.result;
@@ -120,9 +129,11 @@ const Navbar = () => {
           <MenuItem><Button component={Link} to="/auth"variant="contained"> SIGN IN </Button></MenuItem>
           
           <MenuItem>
-            <Badge badgeContent={4} color="primary">
+         
+            <Badge badgeContent={length} color="primary" onClick={open}>
               <ShoppingCartOutlined />
             </Badge>
+            
           </MenuItem>
          
         </Right>

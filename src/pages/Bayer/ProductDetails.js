@@ -1,11 +1,11 @@
-import React ,{useEffect} from 'react'
+import React ,{useEffect, useState} from 'react'
 import { Add, Remove } from "@material-ui/icons";
 import styled from "styled-components";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate , useParams } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import {getProduct} from '../../actions/product';
-import { Card } from 'reactstrap';
+import { Card ,Button ,Form,FormGroup , Label ,Input } from 'reactstrap';
 
 
 
@@ -74,7 +74,7 @@ const Amount = styled.span`
   margin: 0px 5px;
 `;
 
-const Button = styled.button`
+/*const Button = styled.button`
   padding: 15px;
   margin-top: 100px;
   border: 2px solid teal;
@@ -85,11 +85,11 @@ const Button = styled.button`
   &:hover{
       background-color: #f8f4f4;
   }
-`;
+`;*/
 
 
 const ProductDetails = () => {
-
+  const [qty , setQty] =  useState(1);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {id} = useParams();
@@ -98,6 +98,11 @@ const ProductDetails = () => {
   useEffect(()=>{
             dispatch(getProduct(id));
   },[id]);
+
+  const addtocart =(e)=>{
+    e.preventDefault();
+    navigate(`/cart/${product._id}?qty=${qty}`);
+  }
 
   return (
     <div>
@@ -128,14 +133,39 @@ const ProductDetails = () => {
          
           <AddContainer>
             <AmountContainer>
-              <Remove />
-              <Amount>1</Amount>
-              <Add />
+            <FormGroup>
+    <Label for="qty">
+      Qty
+    </Label>
+    <Input
+      id="qty"
+      name="qty"
+      type="select"
+      onChange={(e)=> setQty(e.target.value)}
+      style={{width: "100px"}}
+    >
+      <option value = {1}>
+      1
+      </option>
+      <option value = {2}>
+        2
+      </option>
+      <option value ={3}>
+       3
+      </option>
+      <option value ={4}>
+        4
+      </option>
+      <option value = {5}>
+        5
+      </option>
+    </Input>
+  </FormGroup>
             </AmountContainer>
              
             
           </AddContainer>
-          <Button>ADD TO CART</Button>
+          <Button style={{marginTop: "100px", padding: " 20px"}} onClick={addtocart}>ADD TO CART</Button>
         </InfoContainer>
       </Wrapper>
      

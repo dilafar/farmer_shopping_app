@@ -11,9 +11,11 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
-
-
+import React, { useState ,useEffect} from "react";
+import { useNavigate , useLocation } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import decode from 'jwt-decode';
+import * as actionType  from '../../constans/actionTypes';
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -48,9 +50,30 @@ const UserBox = styled(Box)(({ theme }) => ({
 const SellerNavbar = () => {
    
     const [open, setOpen] = useState(false);
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const dispatch = useDispatch();
+    const location = useLocation();
+    const navigation = useNavigate();  
     
+    const logout = () => {
+      dispatch({ type: actionType.LOGOUT });
   
-   
+      navigation("/");
+  
+      setUser(null);
+    };
+  
+    useEffect(() => {
+      const token = user?.token;
+      console.log(user.result);
+      if (token) {
+        const decodedToken = decode(token);
+        console.log(decodedToken);
+        if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+      }
+  
+      setUser(JSON.parse(localStorage.getItem('profile')));
+    }, [location]);
   return (
     <AppBar position="sticky">
       <StyledToolbar>
@@ -98,7 +121,7 @@ const SellerNavbar = () => {
       >
         <MenuItem>Profile</MenuItem>
         <MenuItem>My account</MenuItem>
-        <MenuItem   >Logout</MenuItem>
+        <MenuItem  onClick={logout} >Logout</MenuItem>
       </Menu>
     </AppBar>
   )
