@@ -8,6 +8,7 @@ import Listitems2 from './pages/Bayer/listtems2';
 import Login from './pages/Login';
 import ProductDetails from './pages/Bayer/ProductDetails';
 import Admin from './pages/Admin/admin';
+import Payment from './pages/Bayer/Payment/payment';
 
 
 function App() {
@@ -23,7 +24,11 @@ function App() {
         <Route exact path="/product" element={< Listitems2/>} />
         <Route exact path="/product/:id" element={< ProductDetails/>} />
         <Route exact path="/admin/*" element={<Admin/>}/>
+        <Route exact path="/payment" element={<Payment/>} ></Route> 
+
        
+
+
       </Routes>
       </BrowserRouter>
    
