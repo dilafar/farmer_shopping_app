@@ -91,7 +91,7 @@ const open =()=>{
       console.log(token.isFarmer);
       if(token.isFarmer === "Approved"){
           setstate(true);
-      }else if(token.firstName){
+      }else if(token.firstName === "admin"){
            setadminNav(true);
       }
       

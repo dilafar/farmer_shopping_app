@@ -9,6 +9,8 @@ import Login from './pages/Login';
 import ProductDetails from './pages/Bayer/ProductDetails';
 import Admin from './pages/Admin/admin';
 import Cart from './pages/Bayer/Cart';
+import Delivery from './pages/Bayer/delivery';
+import Success from './pages/Bayer/Success';
 
 
 function App() {
@@ -26,7 +28,8 @@ function App() {
         <Route exact path="/cart/:id" element={< Cart/>} />
         <Route exact path="/admin/*" element={<Admin/>}/>
         <Route exact path="/cart" element={< Cart/>}/>
-       
+        <Route exact path="/delivery" element={<Delivery/>}/>
+        <Route exact path="/success" element={<Success/>}/>
       </Routes>
       </BrowserRouter>
    

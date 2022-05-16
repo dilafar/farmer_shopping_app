@@ -29,6 +29,12 @@ const Cart = () => {
       const removeFromCartHandle = (id) => {
         dispatch(removefromcart(id));
       };
+    
+  const addtocart =(e)=>{
+    e.preventDefault();
+    navigate(`/delivery`);
+  }
+      
   return (
     <div>
         <div  className="shadow p-3 mb-3 bg-white rounded" >
@@ -79,7 +85,7 @@ const Cart = () => {
     <h2><span>Total : </span></h2>
     <h2><span style={{marginLeft: "10px"}}><span style={{marginLeft: "10px",marginRight : "10px"}}>RS</span>{total}</span></h2>
 </div>
-<Button  variant="contained" color="primary">MAKE DELIVERY</Button>
+<Button  variant="contained" color="primary" onClick={addtocart}>MAKE DELIVERY</Button>
 </Card>
     </div>
   )
