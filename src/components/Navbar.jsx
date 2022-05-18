@@ -4,6 +4,16 @@ import React ,{useState , useEffect} from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import {Link , useLocation , useNavigate} from 'react-router-dom';
+import {
+
+  Menu,
+  MenuItem,
+  
+
+} from "@mui/material";
+import { useDispatch } from 'react-redux';
+import decode from 'jwt-decode';
+import * as actionType  from '../constans/actionTypes';
 
 const Container = styled.div`
   height: 80px;
@@ -61,7 +71,7 @@ const Right = styled.div`
   ${mobile({ flex: 2, justifyContent: "center" })}
 `;
 
-const MenuItem = styled.div`
+const MenuItem2 = styled.div`
   font-size: 14px;
   cursor: pointer;
   margin-left: 25px;
@@ -75,9 +85,30 @@ const Navbar = ({length}) => {
   const [state , setstate] = useState(false);
   const [adminNav , setadminNav] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
  
+  const logout = () => {
+    dispatch({ type: actionType.LOGOUT });
+
+    navigate("/");
+
+    setUser(null);
+  };
+  /*useEffect(() => {
+    const token = user?.token;
+    //console.log(user.result);
+    if (token) {
+      const decodedToken = decode(token);
+      console.log(decodedToken);
+      if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+    }
+
+    setUser(JSON.parse(localStorage.getItem('profile')));
+  }, [location]);*/
+  
+  
  
-const open =()=>{
+const open2 =()=>{
   
     navigate(`/cart`);
 
@@ -114,27 +145,30 @@ const open =()=>{
           <Logo>LAMA.</Logo>
         </Center>
         <Right>
-        <MenuItem><Button  component={Link} to="/" variant="contained"> Home</Button></MenuItem>
+        <MenuItem2><Button  component={Link} to="/" variant="contained"> Home</Button></MenuItem2>
         {state && (
           <>
-        <MenuItem><Button  component={Link} to="/seller"  variant="contained"> Go to Seller</Button></MenuItem>
+        <MenuItem2><Button  component={Link} to="/seller"  variant="contained"> Go to Seller</Button></MenuItem2>
         </>
         )}
          {adminNav && (
           <>
-        <MenuItem><Button  component={Link} to="/admin"  variant="contained"> Go to Admin</Button></MenuItem>
+        <MenuItem2><Button  component={Link} to="/admin"  variant="contained"> Go to Admin</Button></MenuItem2>
         </>
         )}
-        <MenuItem><Button  component={Link} to="/product"  variant="contained"> View Products</Button></MenuItem>
-          <MenuItem><Button component={Link} to="/auth"variant="contained"> SIGN IN </Button></MenuItem>
+        <MenuItem2><Button  component={Link} to="/product"  variant="contained"> View Products</Button></MenuItem2>
+          { user ? (
+          <MenuItem2><Button variant="contained"  onClick={logout}> LOGOUT </Button></MenuItem2>):(
+            <MenuItem2><Button component={Link} to="/auth" variant="contained"> SIGN IN </Button></MenuItem2>)}
           
-          <MenuItem>
+          <MenuItem2>
          
-            <Badge badgeContent={length} color="primary" onClick={open}>
+            <Badge badgeContent={length} color="primary" onClick={open2}>
               <ShoppingCartOutlined />
             </Badge>
             
-          </MenuItem>
+          </MenuItem2>
+         
          
         </Right>
       </Wrapper>

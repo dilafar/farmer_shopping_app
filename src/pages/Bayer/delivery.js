@@ -328,10 +328,8 @@ const Delivery = () => {
       Submit
     </Button>
   <br/>
-    <Button >Button
-                 
-                </Button>
-  <h2>{total2}</h2>
+   
+ 
     </div>
           </Form>
   

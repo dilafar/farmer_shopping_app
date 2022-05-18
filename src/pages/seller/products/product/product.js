@@ -20,13 +20,14 @@ const Product = ({ product}) => {
 
   
   return (
-    <Card >
+    <Card style={{maxWidth: '500px' ,maxHeight: '500px'}}>
       
     <CardImg
       alt="Card image cap"
       src={product.img}
       top
       width="100%"
+      style={{maxHeight: '320px'}}
     />
     <CardBody>
       <CardTitle tag="h5">

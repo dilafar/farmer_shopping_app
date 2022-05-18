@@ -45,9 +45,10 @@ const DeleteModel = ({ product}) => {
           <h5 className="modal-title" id="deleteModalLabel">Delete Product</h5>
           
         </div>
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.Fadhil
+        <Typography id="modal-modal-description" sx={{ mt: 1 }}>
+              Do you need to Delete the Product {product._id} ?
         </Typography>
+      <br/>
         <Button  variant="contained"  color="error"   onClick={ DeleteProduct}>
     OK
   </Button>
