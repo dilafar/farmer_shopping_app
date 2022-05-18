@@ -72,7 +72,7 @@ import {
               <ListItemIcon>
                 <Home />
               </ListItemIcon>
-              <ListItemText primary="Dashboard" />
+              <ListItemText primary="All Products" />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
@@ -80,26 +80,12 @@ import {
               <ListItemIcon>
                 <Article />
               </ListItemIcon>
-              <ListItemText primary="Panel" />
+              <ListItemText primary="Add Product" />
             </ListItemButton>
           </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton  component={Link} to="/seller/list" >
-              <ListItemIcon>
-                <Group />
-              </ListItemIcon>
-              <ListItemText primary="StudentGroups" />
-            </ListItemButton>
-          </ListItem>
+         
           
-          <ListItem disablePadding>
-            <ListItemButton >
-              <ListItemIcon>
-                <ModeNight />
-              </ListItemIcon>
-              <Switch onChange={e=>setMode(mode === "light" ? "dark" : "light")}/>
-            </ListItemButton>
-          </ListItem>
+         
         </List>
        
         </Container>

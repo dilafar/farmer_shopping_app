@@ -53,7 +53,7 @@ const Cart = () => {
             <a className="cart-item-product" href="#">
                 <div className="cart-item-product-thumb"><img src={item.img} alt="Product"/></div>
                 <div className="cart-item-product-info">
-                    <h4 className="cart-item-product-title">Canon EOS M50 Mirrorless Camera{item.product}</h4><span><strong>Type:</strong> Mirrorless</span><span><strong>Color:</strong> Black</span>
+                    <h4 className="cart-item-product-title">{item.name}</h4><span><strong>Type:</strong> </span>{item.categories}<span><strong> {item.updatedAt}</strong></span>
                 </div>
             </a>
         </div>
@@ -72,7 +72,7 @@ const Cart = () => {
             </div>
         </div>
         <div className="px-3 my-3 text-center">
-            <div className="cart-item-label">Subtotal</div><span className="text-xl font-weight-medium">RS {item.price}</span>
+            <div className="cart-item-label">Subtotal</div><span className="text-xl font-weight-medium">RS {item.price * item.qty}</span>
         </div>
         
     </div>

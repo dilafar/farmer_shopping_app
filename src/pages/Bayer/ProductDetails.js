@@ -120,17 +120,20 @@ const ProductDetails = () => {
           
         </ImgContainer>
         <InfoContainer>
-          <Title>Denim Jumpsuit</Title>
-          <Desc>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            venenatis, dolor in finibus malesuada, lectus ipsum porta nunc, at
-            iaculis arcu nisi sed mauris. Nulla fermentum vestibulum ex, eget
-            tristique tortor pretium ut. Curabitur elit justo, consequat id
-            condimentum ac, volutpat ornare.
-          </Desc>
-          <br/><br/>
-          <Price>$ 20</Price>
+        {product  && (
          
+       
+          <Title>{product.title}</Title>
+          )}
+           {product  && (
+          <Desc>
+            {product.desc}
+          </Desc>
+           )}
+          <br/><br/>
+          {product  && (
+          <Price>RS : {product.price}</Price>
+          )}
           <AddContainer>
             <AmountContainer>
             <FormGroup>

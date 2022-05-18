@@ -30,16 +30,16 @@ const Product = ({ product}) => {
     />
     <CardBody>
       <CardTitle tag="h5">
-        Card title
+      {product.title}
       </CardTitle>
       <CardSubtitle
         className="mb-2 text-muted"
         tag="h6"
       >
-        Card subtitle
+          {product.name}
       </CardSubtitle>
       <CardText>
-        This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+      {product.desc}
       </CardText>
       <div style={{display: "flex"}}> 
      <DeleteModel product={product}/>

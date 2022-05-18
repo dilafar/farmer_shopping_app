@@ -30,12 +30,12 @@ const Delivery = () => {
     const [products , setproducts]= useState(cartItems);
     const total2 = cartItems.reduce((a, i) => a + i.qty * i.price, 0).toFixed(2);
     
-    const [itemamout, setitemamount] = useState(total2);
+    const [itemamout, setitemamount] = useState(Number(total2));
 
 
     const handleSubmit = (e) =>{
         e.preventDefault();
-        settotal(itemamout + shipamount);
+       settotal(itemamout+shipamount);
         const delivery = {
           products,
           address,
@@ -49,13 +49,13 @@ const Delivery = () => {
             cvcCode,
             total
           }
-          axios.post('http://localhost:5000/payment/addpayment', pcard,{
+          axios.post('http://localhost:8000/payment/addpayment', pcard,{
               headers:{
                 Authorization : `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`
               }
             }).then(res =>{
               if(res.data){
-                axios.post('http://localhost:5000/delivery/addDelivery', delivery,{
+                axios.post('http://localhost:8000/delivery/addDelivery', delivery,{
                   headers:{
                     Authorization : `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`
                   }
@@ -317,7 +317,7 @@ const Delivery = () => {
         name="total"
         placeholder="with a placeholder"
         type="Number"
-        value={total}  onChange={(e)=> settotal(e.target.value)}
+        value={Number(itemamout)+Number(shipamount)}  onChange={(e)=> settotal(e.target.value)}
         style={{width: "450px"}}
       />
     </FormGroup>
