@@ -142,7 +142,7 @@ const open2 =()=>{
           </SearchContainer>
         </Left>  
         <Center>
-          <Logo>LAMA.</Logo>
+          <Logo>EMA FARMHOUSE.</Logo>
         </Center>
         <Right>
         <MenuItem2><Button  component={Link} to="/" variant="contained"> Home</Button></MenuItem2>

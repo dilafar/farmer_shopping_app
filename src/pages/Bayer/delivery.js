@@ -145,7 +145,7 @@ const Delivery = () => {
            <FormGroup>
                 <div style={{ display : "flex"}}>
     <Label for="exampleSelect">
-      Select Your Payment Method {products.length}
+      Select Your Payment Method 
     </Label>
   
      <Button color="primary" variant="contained" endIcon={<PaymentIcon />} style={{marginLeft: "20px", marginRight: "20px"}} onClick={switchMode1}>CARD</Button>

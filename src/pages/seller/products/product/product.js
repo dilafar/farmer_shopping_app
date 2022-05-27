@@ -17,10 +17,10 @@ import DeleteModel from '../../../../components/Models/deleteModel';
 const Product = ({ product}) => {
    
     const classes = useStyles();
-
+   
   
   return (
-    <Card style={{maxWidth: '500px' ,maxHeight: '500px'}}>
+    <Card style={{maxWidth: '500px' ,maxHeight: '500px'}} >
       
     <CardImg
       alt="Card image cap"
