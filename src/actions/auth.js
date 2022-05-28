@@ -22,10 +22,14 @@ export const signup = (formdata , navigate) => async(dispatch) =>{
         const {data} = await api.signUp(formdata);
         console.log(data.result);
         dispatch({type: AUTH, data});
-        alert("successs......");
+        if(data){
+            alert("successs......");
+        }
+       
         navigate("/");
         
     }catch(error){
+        alert("Email Already Exist , Try With a Different Email ...");
         console.log(error);
     }
 }

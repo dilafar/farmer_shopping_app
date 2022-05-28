@@ -1,15 +1,15 @@
 import Navbar from '../../components/Navbar'
-import React,{useState} from 'react'
+import React,{useState , useEffect} from 'react'
 import { Form ,FormGroup , Label ,Input,Card , Dropdown , DropdownItem,DropdownMenu,DropdownToggle} from 'reactstrap'
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 import {useDispatch , useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom"
+import {useNavigate ,useParams} from "react-router-dom"
 import PaymentIcon from '@material-ui/icons/Payment';
 import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
 import axios from 'axios';
 
-const Delivery = () => {
+const Delivery2 = () => {
     const [card , setcard] = useState(false);
     const [mobile , setmobile] = useState(false);
     const  [cvcCode , setcvc] = useState(0);
@@ -29,9 +29,15 @@ const Delivery = () => {
     const {  cartItems } = cart;
     const [products , setproducts]= useState(cartItems);
     const total2 = cartItems.reduce((a, i) => a + i.qty * i.price, 0).toFixed(2);
-    
+    const {id} = useParams();
     const [itemamout, setitemamount] = useState(Number(total2));
-
+    useEffect(() => {
+        const total3 = cartItems.reduce((a, i) => a + i.qty * i.price, 0).toFixed(2);
+        setitemamount(Number(total3))
+        
+       
+      }, []);
+    
 
     const handleSubmit = (e) =>{
         e.preventDefault();
@@ -42,52 +48,26 @@ const Delivery = () => {
           total
         }
 
-        if(card){
-          const pcard = {
-            cardHolder,
-            cardNo,
-            cvcCode,
-            total
-          }
-          axios.post('http://localhost:8000/payment/addpayment', pcard,{
-              headers:{
-                Authorization : `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`
-              }
-            }).then(res =>{
-              if(res.data){
-                alert('Your payment was successfully made please check your mail...');
-                window.location='/delivery2/${itemamout}'
-              }else{
-                alert("Invalid card details... Please re-enter!");
-              }
-            }).catch(err =>{
-              console.log(err);
-            })
+     
+      
+                axios.post('http://localhost:8000/delivery/addDelivery', delivery,{
+                  headers:{
+                    Authorization : `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`
+                  }
+                }).then(res =>{
+                  if(res.data){
+                    alert('Your payment was successfully made please check your mail...');
+                    window.location='/success'
+                  }else{
+                    alert("Invalid shipping details")
+                  }
+                }).catch(err =>{
+                  console.log(err);
+                })
+              
+       
 
-        }
-
-        if(mobile){
-          const pmobile = {
-            phoneNo,
-            pin,
-           total
-          }
-          axios.post('http://localhost:8000/payment/createpay', pmobile,{
-              headers:{
-                Authorization : `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`
-              }
-            }).then(res =>{
-              if(res.data){
-                alert('Your payment was successfully made please check your mail...');
-                window.location='/delivery2/${itemamout}';
-              }else{
-                alert("Invalid card details... Please re-enter!");
-              }
-            }).catch(err =>{
-              console.log(err);
-            })
-
-        }
+       
        
        
     };
@@ -117,103 +97,94 @@ const Delivery = () => {
           <Form onSubmit={handleSubmit}>
             <div style={{ marginLeft: "420px" , marginTop: "50px" , marginBottom: "100px"}}>
             <h2 style={{ margin: "30px 0px 30px 150px" , }}>Checkout</h2>
-            <h3 style={{ margin: "30px 0px 30px 150px" , }}>Total : {itemamout}</h3>
-           <FormGroup>
-                <div style={{ display : "flex"}}>
-    <Label for="exampleSelect">
-      Select Your Payment Method 
-    </Label>
-  
-     <Button color="primary" variant="contained" endIcon={<PaymentIcon />} style={{marginLeft: "20px", marginRight: "20px"}} onClick={switchMode1}>CARD</Button>
-     <Button color="primary"  variant="contained" endIcon={< PhoneAndroidIcon/>} onClick={switchMode2}>MOBILE</Button>
-    
-    </div>
-  </FormGroup>
-  
 
-  {card && (
-              <>
-             
-          <FormGroup>
+    
+
+    <h2 style={{ margin: "30px 0px 30px 120px" , }}>Shipping Details</h2>
+
+
+    <FormGroup>
           <Label for="fname">
-        Card Holder's Name
+        Address
       </Label>
       <Input
-        id="cardHolder"
-        name="cardHolder"
+        id="address"
+        name="address"
         placeholder="with a placeholder"
         type="text"
-        value={cardHolder}  onChange={(e)=> setname(e.target.value)}
+        value={address}  onChange={(e)=> setaddress(e.target.value)}
         style={{width: "450px"}}
       />
     </FormGroup>
 
-    
+    <FormGroup>
+                <div style={{ display : "flex"}}>
+    <Label for="exampleSelect">
+    Select Your City 
+    </Label>
+    <Input
+      id="exampleSelect"
+      name="city"
+      type="select"
+      style={{width: " 303px" , marginLeft: "20px" }}
+      onChange={(e)=> setcity(e.target.value)}
+    >
+        <option >
+        Select
+      </option>
+      <option value = "Colombo">
+        Colombo
+      </option>
+      <option value = "Dehiwala">
+        Dehiwala
+      </option>
+     
+    </Input>
+    </div>
+  </FormGroup>
+
     <FormGroup>
       <Label for="price">
-        Card Number
+        Item Amount
       </Label>
       <Input
-        id="cardNo"
-        name="cardNo"
+        id="itemamout"
+        name="itemamout"
         placeholder="with a placeholder"
         type="Number"
-        value={cardNo}  onChange={(e)=> setcardnumber(e.target.value)}
-        style={{width: "450px"}}
-      />
-    </FormGroup>
-  
-    
-    <FormGroup>
-      <Label for="price">
-        CVC Code
-      </Label>
-      <Input
-        id="cvcCode"
-        name="cvcCode"
-        placeholder="with a placeholder"
-        type="Number"
-        value={cvcCode}  onChange={(e)=> setcvc(e.target.value)}
-        style={{width: "450px"}}
-      />
-    </FormGroup>
-    </>
-  )}
-   {mobile && (
-              <>
-    <FormGroup>
-      <Label for="price">
-        Phone Number
-      </Label>
-      <Input
-        id="phoneNo"
-        name="phoneNo"
-        placeholder="with a placeholder"
-        type="Number"
-        value={phoneNo}  onChange={(e)=> setphone(e.target.value)}
+        value={itemamout}  onChange={(e)=> setitemamount(e.target.value)}
         style={{width: "450px"}}
       />
     </FormGroup>
 
     <FormGroup>
       <Label for="price">
-        Pin
+        Shipping Amount
       </Label>
       <Input
-        id="pin"
-        name="pin"
+        id="shipamount"
+        name="shipamount"
         placeholder="with a placeholder"
         type="Number"
-        value={pin}  onChange={(e)=> setpin(e.target.value)}
+        value={shipamount}  onChange={(e)=> setshipamount(e.target.value)}
         style={{width: "450px"}}
       />
     </FormGroup>
-    </>
 
-   )}
-
-
-    
+    <FormGroup>
+      <Label for="price">
+        Total Amount
+      </Label>
+      <Input
+        id="total"
+        name="total"
+        placeholder="with a placeholder"
+        type="Number"
+        value={Number(itemamout)+Number(shipamount)}  onChange={(e)=> settotal(e.target.value)}
+        style={{width: "450px"}}
+      />
+    </FormGroup>
+   
  
   
     <Button type="submit" color="success"  variant="contained" endIcon={<SendIcon />} >
@@ -231,4 +202,4 @@ const Delivery = () => {
   )
 }
 
-export default Delivery
+export default Delivery2;

@@ -101,20 +101,23 @@ const Additems = () => {
       onChange={(e)=> setcategories(e.target.value)}
       style={{width: "800px"}}
     >
-      <option value = "Computing">
-        Computing
+       <option value = "seeds">
+        Select categorie
       </option>
-      <option value = "Engineering">
-        Engineering
+    <option value = "seeds">
+        seeds
       </option>
-      <option value = "Management">
-        Management
+      <option value = "plants">
+        plants
       </option>
-      <option value = "Medicine">
-        Medicine
+      <option value = "compost">
+        compost
       </option>
-      <option value = "Research">
-        Research
+      <option value = "farmingEquipment">
+      farmingEquipment
+      </option>
+      <option value = "fertilizer">
+      fertilizer
       </option>
     </Input>
   </FormGroup>

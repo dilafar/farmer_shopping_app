@@ -5,7 +5,8 @@ import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 import {signup , signin} from '../actions/auth';
 import {useDispatch} from "react-redux";
-import {useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom";
+import farm from '../components/images/Farming.png';
 
 const Login = () => {
   const [isSignup , setIsSignup] = useState(false);
@@ -16,6 +17,9 @@ const Login = () => {
   const [confirmpassword , setconfirmpassword] = useState('');
   const [address , setaddress] = useState('');
   const [Phone , setphone] = useState(0);
+  const [ph , setph] = useState(false);
+  const [em , setem] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -27,8 +31,19 @@ const Login = () => {
 
   const handleSubmit = (e) =>{
     e.preventDefault();
+    
     if(isSignup){
-              dispatch(signup({firstName , lastName , email , Phone ,address ,password , confirmpassword},navigate));
+              if(password !== confirmpassword){
+                  alert("Password Miss Match");
+            
+              }else if(Phone.length > 10){
+                alert("Invalied Phone Number.....(Phone Number Must Contains 10 numbers)");
+                
+              }else{
+                dispatch(signup({firstName , lastName , email , Phone ,address ,password , confirmpassword},navigate));
+              }
+
+              
     }else{
               dispatch(signin({email , password} , navigate));
     }
@@ -46,10 +61,11 @@ const Login = () => {
     setconfirmpassword('');
     setaddress('');
     setphone(0);
-
+    setem(false);
+    setph(false);
   }
   return (
-    <div>
+    <div style={{backgroundImage : `url(${farm})` , backgroundSize: 'cover' , paddingBottom : '400px'}}>
       <div  className="shadow p-3 mb-5 bg-white rounded" >
         <Navbar />
         </div>
@@ -73,6 +89,7 @@ const Login = () => {
       type="text"
       value={firstName}  onChange={(e)=> setfirstname(e.target.value)}
       style={{width: "330px"}}
+      required
     />
   </FormGroup>
   <FormGroup>
@@ -86,6 +103,7 @@ const Login = () => {
       type="text"
       value={lastName}  onChange={(e)=> setlastname(e.target.value)}
       style={{width: "330px" , marginLeft: "40px"}}
+      required
     />
   </FormGroup>
   </div>
@@ -102,6 +120,7 @@ const Login = () => {
       type="email"
       value={email}  onChange={(e)=> setemail(e.target.value)}
       style={{width :  "700px"}}
+      required
     />
   </FormGroup>
 
@@ -118,9 +137,9 @@ const Login = () => {
       type="Number"
       value={Phone}  onChange={(e)=> setphone(e.target.value)}
       style={{width :  "700px"}}
+      required
     />
   </FormGroup>
-
 
   <FormGroup>
     <Label for="exampleText">
@@ -132,6 +151,7 @@ const Login = () => {
       type="textarea"
       value={address}  onChange={(e)=> setaddress(e.target.value)}
       style={{width :  "700px" , height: "250px"}}
+      required
     />
   </FormGroup>
 </>
@@ -147,6 +167,7 @@ const Login = () => {
       type="password"
       value={password}  onChange={(e)=> setpassword(e.target.value)}
       style={{width :  "700px"}}
+      required
     />
   </FormGroup>
   {isSignup && (
@@ -162,6 +183,7 @@ const Login = () => {
       type="password"
       value={confirmpassword}  onChange={(e)=> setconfirmpassword(e.target.value)}
       style={{width :  "700px"}}
+      required
     />
   </FormGroup>
 </>
@@ -178,6 +200,7 @@ const Login = () => {
         </Form>
 
         </Card>
+      
       </div>
   )
 }

@@ -11,6 +11,7 @@ import Admin from './pages/Admin/admin';
 import Cart from './pages/Bayer/Cart';
 import Delivery from './pages/Bayer/delivery';
 import Success from './pages/Bayer/Success';
+import Delivery2 from './pages/Bayer/delivery2';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         <Route exact path="/admin/*" element={<Admin/>}/>
         <Route exact path="/cart" element={< Cart/>}/>
         <Route exact path="/delivery" element={<Delivery/>}/>
+        <Route exact path="/delivery2/:id" element={<Delivery2/>}/>
         <Route exact path="/success" element={<Success/>}/>
       </Routes>
       </BrowserRouter>
